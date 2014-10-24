@@ -3,7 +3,7 @@
  *
  * Base class to represent employees in the company
  */
-public class Employee extends Thread {
+public abstract class Employee extends Thread {
 
     private Boolean busy;
 

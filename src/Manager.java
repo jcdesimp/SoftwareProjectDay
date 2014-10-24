@@ -5,4 +5,7 @@ public class Manager extends Employee {
 
     private Office office;
 
+    public Manager(String name) {
+        super(name);
+    }
 }
