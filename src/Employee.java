@@ -5,7 +5,21 @@
  */
 public abstract class Employee extends Thread {
 
-    private Boolean busy;
+    private boolean busy;
+
+    private int arrivalTime;
+    private int endTime;
+    private int lunchStartTIme;
+
+    private int timeWorking;
+    private int timeLunch;
+    private int timeMeeting;
+
+    private boolean atWork;
+    private boolean ateLunch;
+    private boolean closingMeeting;
+
+
 
     public Employee(String name) {
         super(name);

@@ -6,6 +6,13 @@ public class Developer extends Employee {
     private int devId;
     private Team team;
 
+    private int timeWaiting;
+
+    private boolean morningMeeting;
+
+    private boolean waitingForQuestion;
+
+
     public Developer(String name) {
         super(name);
     }
