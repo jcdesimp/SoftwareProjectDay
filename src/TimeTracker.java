@@ -39,4 +39,21 @@ public class TimeTracker extends Thread {
     public int getCurrTime() {
         return currTime;
     }
+
+
+    public String getTimestamp() {
+        int timeNow = currTime;
+        int hours = timeNow / 60;
+        int remMins = timeNow % 60;
+        String meridiem = "am";
+        if (hours >= 12) {
+            meridiem = "pm";
+        }
+        if (hours > 12) {
+            hours = hours - 12;
+        }
+
+        return hours + ":" + remMins + " " + meridiem;
+
+    }
 }
