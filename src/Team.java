@@ -24,4 +24,10 @@ public class Team {
     public int getTeamId() {
         return teamId;
     }
+
+    public Office getOffice() {
+        return office;
+    }
+
+
 }

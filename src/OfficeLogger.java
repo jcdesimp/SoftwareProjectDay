@@ -5,6 +5,9 @@ public class OfficeLogger {
 
     private TimeTracker time;
 
+    public OfficeLogger(TimeTracker time) {
+        this.time = time;
+    }
 
     public void logAtTime(String message) {
 

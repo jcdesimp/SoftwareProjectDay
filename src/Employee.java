@@ -7,13 +7,13 @@ public abstract class Employee extends Thread {
 
     private boolean busy;
 
-    private int arrivalTime;
-    private int endTime;
-    private int lunchStartTIme;
+    private long arrivalTime;
+    private long endTime;
+    private long lunchStartTIme;
 
-    private int timeWorking;
-    private int timeLunch;
-    private int timeMeeting;
+    private long timeWorking;
+    private long timeLunch;
+    private long timeMeeting;
 
     private boolean atWork;
     private boolean ateLunch;
@@ -39,8 +39,14 @@ public abstract class Employee extends Thread {
 
     }
 
-    public synchronized boolean isBusy() {
-        return busy;
+    public long getArrivalTime() {
+        return arrivalTime;
     }
+
+    public void setArrivalTime(long arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+
 
 }

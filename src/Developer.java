@@ -29,4 +29,20 @@ public class Developer extends Employee {
 
     }
 
+
+    @Override
+    public void run() {
+
+        team.getOffice().getLogger().logAtTime(getName() + " Arrives at the office.");
+        setArrivalTime(team.getOffice().getTimeTracker().getCurrTime());
+
+        while ( team.getOffice().getTimeTracker().getCurrTime() - getArrivalTime() > 4800 ||
+                team.getOffice().getTimeTracker().getCurrTime() < 5100 ) {
+
+
+
+
+
+        }
+    }
 }
