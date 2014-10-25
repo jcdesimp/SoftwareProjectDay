@@ -28,6 +28,11 @@ public class Developer extends Employee {
     public void askQuestion() {
 
     }
+    
+    public Team getTeam()
+    {
+    	return team;
+    }
 
 
     @Override

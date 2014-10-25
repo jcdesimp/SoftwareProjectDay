@@ -35,4 +35,9 @@ public class Office {
     public OfficeLogger getLogger() {
         return logger;
     }
+    
+    public getConferenceRoom() {
+    	return confRoom;
+    }
+    }
 }
