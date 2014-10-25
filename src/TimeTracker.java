@@ -7,6 +7,7 @@ import java.util.concurrent.CountDownLatch;
 public class TimeTracker extends Thread {
 
     public long currTime;
+    private long startTime;
     private CountDownLatch startSignal;
 
     /**
@@ -30,16 +31,10 @@ public class TimeTracker extends Thread {
             e.printStackTrace();
         }
 
-        currTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 
         while (this.getTime() <= 5400) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            currTime += 1;
+            currTime = System.currentTimeMillis() - startTime;
         }
 
     }
