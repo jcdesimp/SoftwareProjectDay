@@ -36,19 +36,28 @@ public class ConferenceRoom {
 	public void setupTeamMeeting(int teamId)
 	{
         try {
-            team_barriers.get(teamId).await();
+            team_barriers.get(teamId - 1).await();
+            waitList.add(((Developer) Thread.currentThread()).getTeam());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
-        if (waitList.size() == 0)
+	}
+	
+	public void finishMeeting()
+	{
+		if (waitList.size() > 0)
 		{
-			occupied = true;
+			startMeeting(waitList.remove(0));
 		}
-		else
+	}
+	
+	public void startMeeting(Team team)
+	{
+		synchronized (team)
 		{
-			//waitList.add();
+			notifyAll();
 		}
 	}
 	
