@@ -36,8 +36,8 @@ public class Office {
         return logger;
     }
     
-    public getConferenceRoom() {
+    public ConferenceRoom getConferenceRoom() {
     	return confRoom;
     }
-    }
+
 }

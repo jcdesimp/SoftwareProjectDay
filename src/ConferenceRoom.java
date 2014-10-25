@@ -1,5 +1,5 @@
-package src;
 import java.util.ArrayList;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 /**
@@ -35,8 +35,14 @@ public class ConferenceRoom {
 	
 	public void setupTeamMeeting(int teamId)
 	{
-		team_barriers.get(teamId).await();
-		if (waitList.size() == 0)
+        try {
+            team_barriers.get(teamId).await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+        if (waitList.size() == 0)
 		{
 			occupied = true;
 		}
@@ -48,8 +54,14 @@ public class ConferenceRoom {
 	
 	public void joinAllMeeting()
 	{
-		all_barrier.await();
-	}
+        try {
+            all_barrier.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	
 }

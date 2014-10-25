@@ -10,8 +10,6 @@ public class Main {
         int NUM_MEMBERS = 4;
 
 
-        Manager manager = new Manager();
-
         ArrayList<ArrayList<Employee>> teams = new ArrayList<ArrayList<Employee>>();
 
 
