@@ -24,6 +24,19 @@ public abstract class Employee extends Thread {
     public Employee(String name) {
         super(name);
         this.busy = false;
+
+        this.arrivalTime = -1;
+        this.endTime = -1;
+        this.lunchStartTIme = -1;
+
+        this.timeWorking = 0;
+        this.timeLunch = 0;
+        this.timeMeeting = 0;
+
+        this.atWork = false;
+        this.ateLunch = false;
+        this.closingMeeting = false;
+
     }
 
     public synchronized boolean isBusy() {

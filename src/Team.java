@@ -10,6 +10,12 @@ public class Team {
     private TeamLead teamLead;
     private ArrayList<Developer> developers;
 
+    public Team(int teamId, Office office) {
+        this.teamId = teamId;
+        this.office = office;
+    }
 
-
+    public int getTeamId() {
+        return teamId;
+    }
 }

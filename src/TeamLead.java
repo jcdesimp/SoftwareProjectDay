@@ -5,7 +5,8 @@ public class TeamLead extends Developer {
 
     private boolean managerMeeting;
 
-    public TeamLead(String name) {
-        super(name);
+    public TeamLead(Team team, int devId, boolean managerMeeting) {
+        super(team, devId);
+        this.managerMeeting = managerMeeting;
     }
 }

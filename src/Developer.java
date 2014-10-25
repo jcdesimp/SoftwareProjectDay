@@ -13,8 +13,15 @@ public class Developer extends Employee {
     private boolean waitingForQuestion;
 
 
-    public Developer(String name) {
-        super(name);
+    public Developer(Team team, int devId) {
+        super(("Developer " + team.getTeamId() + devId));
+        this.devId = devId;
+        this.team = team;
+        this.timeWaiting = 0;
+
+        this.morningMeeting = false;
+        this.waitingForQuestion = false;
+
     }
 
 
