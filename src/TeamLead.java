@@ -1,3 +1,5 @@
+import java.util.concurrent.CountDownLatch;
+
 /**
  * File created by jcdesimp on 10/24/14.
  */
@@ -5,13 +7,20 @@ public class TeamLead extends Developer {
 
     private boolean managerMeeting;
 
-    public TeamLead(Team team, int devId) {
-        super(team, devId);
+    public TeamLead(Team team, int devId, CountDownLatch startSignal) {
+        super(team, devId, startSignal);
         this.managerMeeting = false;
     }
 
     @Override
     public void run() {
+
+        // Wait for start signal
+        try {
+            getStartSignal().await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Take care of arrival tasks
         getTeam().getOffice().getLogger().logAtTime(getName() + " arrives at the office.");
@@ -19,6 +28,13 @@ public class TeamLead extends Developer {
 
         while ( getTeam().getOffice().getTimeTracker().getCurrTime() - getArrivalTime() < 4800 ||
                 getTeam().getOffice().getTimeTracker().getCurrTime() < 5100 ) {
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             // Check for all time sensitive things first (Lunch, Meetings, Etc)
             // Also check to see of the time sensitive things have already been done,
             // if so don't bother checking the time.

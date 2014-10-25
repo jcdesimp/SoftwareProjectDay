@@ -1,3 +1,5 @@
+import java.util.concurrent.CountDownLatch;
+
 /**
  * File created by jcdesimp on 10/24/14.
  *
@@ -19,10 +21,15 @@ public abstract class Employee extends Thread {
     private boolean ateLunch;
     private boolean closingMeeting;
 
+    private final CountDownLatch startSignal;
 
 
-    public Employee(String name) {
+
+    public Employee(String name, CountDownLatch startSignal) {
         super(name);
+
+        this.startSignal = startSignal;
+
         this.busy = false;
 
         this.arrivalTime = -1;
@@ -39,6 +46,10 @@ public abstract class Employee extends Thread {
 
     }
 
+    public CountDownLatch getStartSignal() {
+        return startSignal;
+    }
+
     public long getArrivalTime() {
         return arrivalTime;
     }
@@ -53,5 +64,17 @@ public abstract class Employee extends Thread {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    public void addTimeWorking(long tMillis) {
+        timeWorking += tMillis;
+    }
+
+    public void addTimeLunch(long tMillis) {
+        timeLunch += tMillis;
+    }
+
+    public void addTimeMeeting(long tMillis) {
+        timeMeeting += tMillis;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.concurrent.CountDownLatch;
+
 /**
  * File created by jcdesimp on 10/21/14.
  */
@@ -6,11 +8,13 @@ public class TimeTracker extends Thread {
 
     private long currTime;
     private long startTime;
+    private CountDownLatch startSignal;
 
     /**
      * Constructor for TimeTracker
      */
-    public TimeTracker() {
+    public TimeTracker(CountDownLatch startSignal) {
+        this.startSignal = startSignal;
         this.currTime = 0;
     }
 
@@ -20,6 +24,12 @@ public class TimeTracker extends Thread {
     @Override
     public void run() {
 
+        // Wait for start signal
+        try {
+            startSignal.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         startTime = System.currentTimeMillis();
 
         while (this.getCurrTime() <= 5400) {
@@ -33,18 +43,8 @@ public class TimeTracker extends Thread {
      */
     public long getCurrTime(){
         //return System.currentTimeMillis() - currTime;
+        //System.out.println(currTime);
         return currTime;
-    }
-
-
-    /**
-     * Gets the time in minutes of the day, not just elapsed
-     * since start of day. (e.g. )
-     * @return
-     */
-    public long getRealCurrTime(){
-        //return System.currentTimeMillis() - currTime;
-        return 4800 + currTime;
     }
 
 
@@ -62,7 +62,7 @@ public class TimeTracker extends Thread {
             hours = hours - 12;
         }
 
-        return hours + ":" + remMins + " " + meridiem;
+        return hours + ":" + String.format("%tM",remMins) + " " + meridiem;
 
     }
 }
