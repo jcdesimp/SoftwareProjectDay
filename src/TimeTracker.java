@@ -1,20 +1,16 @@
 /**
  * File created by jcdesimp on 10/21/14.
  */
-import java.util.concurrent.CountDownLatch;
-
 
 public class TimeTracker extends Thread {
 
     public long currTime;
     private long startTime;
-    private CountDownLatch startSignal;
 
     /**
      * Constructor for TimeTracker
      */
-    public TimeTracker(CountDownLatch startSignal) {
-        this.startSignal = startSignal;
+    public TimeTracker() {
         this.currTime = 0;
     }
 
@@ -23,13 +19,6 @@ public class TimeTracker extends Thread {
      */
     @Override
     public void run() {
-
-        try {
-            // Starting all threads at the same time (clock == 0 / "8:00AM").
-            startSignal.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         startTime = System.currentTimeMillis();
 
