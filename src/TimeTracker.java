@@ -1,16 +1,19 @@
 /**
  * File created by jcdesimp on 10/21/14.
  */
+import java.util.concurrent.CountDownLatch;
+
+
 public class TimeTracker extends Thread {
 
-    public int currTime;
-
+    public long currTime;
+    private CountDownLatch startSignal;
 
     /**
      * Constructor for TimeTracker
      */
-    public TimeTracker() {
-        super("TimeTracker");
+    public TimeTracker(CountDownLatch startSignal) {
+        this.startSignal = startSignal;
         this.currTime = 0;
     }
 
@@ -20,7 +23,16 @@ public class TimeTracker extends Thread {
     @Override
     public void run() {
 
-        while (currTime < 48) {
+        try {
+            // Starting all threads at the same time (clock == 0 / "8:00AM").
+            startSignal.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        currTime = System.currentTimeMillis();
+
+        while (this.getTime() <= 5400) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -36,15 +48,15 @@ public class TimeTracker extends Thread {
      * Getter for current time
      * @return the current time
      */
-    public int getCurrTime() {
-        return currTime;
+    public long getTime(){
+        return System.currentTimeMillis() - currTime;
     }
 
 
     public String getTimestamp() {
-        int timeNow = currTime;
-        int hours = timeNow / 60;
-        int remMins = timeNow % 60;
+        long timeNow = currTime;
+        long hours = timeNow / 60;
+        long remMins = timeNow % 60;
         String meridiem = "am";
         if (hours >= 12) {
             meridiem = "pm";
