@@ -48,12 +48,23 @@ public class TimeTracker extends Thread {
     }
 
 
+    /**
+     * Gets the time in minutes of the day, not just elapsed
+     * since start of day. (e.g. )
+     * @return
+     */
+    public long getRealCurrTime(){
+        //return System.currentTimeMillis() - currTime;
+        return 4800 + currTime;
+    }
+
+
 
 
     public String getTimestamp() {
-        long timeNow = getCurrTime() + 4800;
+        long timeNow = getRealCurrTime();
         long hours = timeNow / 600;
-        long remMins = timeNow % 600;
+        long remMins = (timeNow % 600)/10;
         String meridiem = "am";
         if (hours >= 12) {
             meridiem = "pm";
@@ -62,7 +73,7 @@ public class TimeTracker extends Thread {
             hours = hours - 12;
         }
 
-        return hours + ":" + String.format("%tM",remMins) + " " + meridiem;
+        return hours + ":" + String.format("%02d", remMins) + " " + meridiem;
 
     }
 }

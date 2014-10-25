@@ -11,6 +11,12 @@ public class Team {
     private TeamLead teamLead;
     private ArrayList<Developer> developers;
 
+    /**
+     * Constructor for a Team
+     * @param teamId id of the team
+     * @param office office object that team is a part of
+     * @param startSignal to tell developer threads when to start
+     */
     public Team(int teamId, Office office, CountDownLatch startSignal) {
         this.teamId = teamId;
         this.office = office;
@@ -22,6 +28,9 @@ public class Team {
         }
     }
 
+    /**
+     * Start all the team's developer threads
+     */
     public void startDevs() {
         for (Developer d : developers) {
             d.start();
@@ -29,10 +38,18 @@ public class Team {
 
     }
 
+    /**
+     * Get the id of the team
+     * @return teamid
+     */
     public int getTeamId() {
         return teamId;
     }
 
+    /**
+     * get the office object of the tam
+     * @return Office of team
+     */
     public Office getOffice() {
         return office;
     }

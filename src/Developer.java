@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -43,6 +44,15 @@ public class Developer extends Employee {
         // Wait for start signal
         try {
             getStartSignal().await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Random r = new Random();
+
+        //Randomly decide when to arrive
+        try {
+            Thread.sleep(r.nextInt(30)*10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

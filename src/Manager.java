@@ -45,6 +45,7 @@ public class Manager extends Employee {
             // Also check to see of the time sensitive things have already been done,
             // if so don't bother checking the time.
 
+
             // See if anyone is waiting to ask you a question
             // if so then attempt to answer the question
             // if can't answer then request an answer form the manager
