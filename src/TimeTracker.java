@@ -36,7 +36,6 @@ public class TimeTracker extends Thread {
         while (this.getTime() <= 5400) {
             currTime = System.currentTimeMillis() - startTime;
         }
-
     }
 
     /**

@@ -11,10 +11,10 @@ public class Office {
     private ArrayList<Team> teams;
     private ConferenceRoom confRoom;
 
-    public Office() {
+    public Office(TimeTracker time) {
         this.logger =  new OfficeLogger();
 
-        //this.timeTracker = new TimeTracker()
+        this.timeTracker = time;
 
         this.projectManager = new Manager(this);
         this.confRoom =  new ConferenceRoom();
