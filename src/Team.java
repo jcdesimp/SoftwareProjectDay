@@ -53,6 +53,10 @@ public class Team {
     public Office getOffice() {
         return office;
     }
+    
+    public ArrayList<Developer> getDevelopers() {
+    	return developers;
+    }
 
 
 }

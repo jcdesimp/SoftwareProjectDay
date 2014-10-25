@@ -55,9 +55,9 @@ public class ConferenceRoom {
 	
 	public void startMeeting(Team team)
 	{
-		synchronized (team)
+		for (Developer d : team.getDevelopers())
 		{
-			notifyAll();
+			//make d busy
 		}
 	}
 	
