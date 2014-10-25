@@ -47,6 +47,11 @@ public abstract class Employee extends Thread {
         this.arrivalTime = arrivalTime;
     }
 
+    public long getEndTime() {
+        return endTime;
+    }
 
-
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
 }
