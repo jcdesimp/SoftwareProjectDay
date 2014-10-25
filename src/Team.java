@@ -13,6 +13,12 @@ public class Team {
     public Team(int teamId, Office office) {
         this.teamId = teamId;
         this.office = office;
+        this.developers = new ArrayList<Developer>();
+        this.teamLead = new TeamLead(this, 1);
+        developers.add(teamLead);
+        for (int i = 2; i < 4; i++) {
+            developers.add( new Developer(this, i) );
+        }
     }
 
     public int getTeamId() {
