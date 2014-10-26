@@ -50,12 +50,15 @@ public class ConferenceRoom {
 		{
 			if (!occupied && teamId == waitList.get(0))
 			{
-                System.out.println("Waiting" + employee.getDevId());
-				occupied = true;
-                String gather_message = "Team " + teamId + " is gathering for a team meeting.";
-                office.getLogger().logAtTime(gather_message);
-                teams_met.add(teamId);
-                System.out.println(teams_met);
+                synchronized (this)
+                {
+                    //System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
+                    occupied = true;
+                    String gather_message = "Team " + teamId + " is gathering for a team meeting.";
+                    office.getLogger().logAtTime(gather_message);
+                    teams_met.add(teamId);
+                    //System.out.println(teams_met);
+                }
             }
 		}
 
