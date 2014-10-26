@@ -77,4 +77,13 @@ public abstract class Employee extends Thread {
     public void addTimeMeeting(long tMillis) {
         timeMeeting += tMillis;
     }
+
+    public boolean ateLunch() {
+        return ateLunch;
+    }
+
+    public void eatLunch() {
+        ateLunch = true;
+    }
+
 }

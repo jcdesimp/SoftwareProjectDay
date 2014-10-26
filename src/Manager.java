@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -33,17 +34,32 @@ public class Manager extends Employee {
         office.getLogger().logAtTime(getName() + " arrives at the office.");
         setArrivalTime(office.getTimeTracker().getCurrTime());
 
+        Random r = new Random();
+
         while ( office.getTimeTracker().getCurrTime() < 5400 ) {
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
 
             // Check for all time sensitive things first (Lunch, Meetings, Etc)
             // Also check to see of the time sensitive things have already been done,
             // if so don't bother checking the time.
+            if (!ateLunch() && office.getTimeTracker().getRealCurrTime() >= 7200) {
+
+                long startTime = office.getTimeTracker().getCurrTime();
+
+                office.getLogger().logAtTime(getName() + " goes to lunch.");
+                try {
+                    Thread.sleep( 300 + r.nextInt((int) (7500 -
+                            office.getTimeTracker().getRealCurrTime())));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                eatLunch();
+
+                office.getLogger().logAtTime(getName() + " returns from lunch.");
+                addTimeLunch(office.getTimeTracker().getRealCurrTime() - startTime);
+
+            }
 
 
             // See if anyone is waiting to ask you a question
@@ -52,6 +68,12 @@ public class Manager extends Employee {
 
             // If there are no time sensitive things then do
             // "managerial tasks" and loop again.
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
         }

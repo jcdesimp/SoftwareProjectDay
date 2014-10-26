@@ -51,7 +51,7 @@ public class TimeTracker extends Thread {
     /**
      * Gets the time in minutes of the day, not just elapsed
      * since start of day. (e.g. )
-     * @return
+     * @return actual time of day.
      */
     public long getRealCurrTime(){
         //return System.currentTimeMillis() - currTime;
