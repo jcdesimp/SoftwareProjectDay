@@ -1,5 +1,5 @@
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.*;
 
 /**
  * File created by jcdesimp on 10/24/14.
@@ -8,9 +8,41 @@ public class TeamLead extends Developer {
 
     private boolean managerMeeting;
 
+    private LinkedBlockingQueue<Thread> waitingQuestions;
+    private Thread answering;
+    private CyclicBarrier waitOnAnswer;
+
     public TeamLead(Team team, int devId, CountDownLatch startSignal) {
         super(team, devId, startSignal);
         this.managerMeeting = false;
+        this.waitingQuestions = new LinkedBlockingQueue<Thread>();
+        this.waitOnAnswer = new CyclicBarrier(2);
+    }
+
+
+
+
+    public void askQuestion() {
+        waitingQuestions.add(Thread.currentThread());
+        while(answering == null || !answering.getName().equals(Thread.currentThread().getName())) {
+            try {
+                synchronized (Thread.currentThread()) {
+                    Thread.currentThread().wait();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            waitOnAnswer.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
@@ -64,10 +96,44 @@ public class TeamLead extends Developer {
 
             // See if anyone is waiting to ask you a question
             // if so then attempt to answer the question
-            // if can't answer then request an answer form the manager
+            // if can't answer then request an answer from the manager
+            else if (!waitingQuestions.isEmpty()) {
+                answering = waitingQuestions.poll();
+                synchronized (answering) {
+                    answering.notify();
+                }
+
+                if(r.nextInt(2) == 0) {
+                    getTeam().getOffice().getLogger().logAtTime(getName() +
+                            " cannot answer " + answering.getName() +"'s question, asking manager...");
+                }
+                try {
+                    waitOnAnswer.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+
+
 
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
+            else {
+                if (r.nextInt(100) < 1) {
+                    long startQ = getTeam().getOffice().getTimeTracker().getCurrTime();
+                    getTeam().getOffice().getLogger().logAtTime(getName() +
+                            " asks manager a question.");
+                    getTeam().getOffice().getProjectManager().askQuestion();
+                    getTeam().getOffice().getLogger().logAtTime(
+                            Thread.currentThread().getName() +"'s question has been answered.");
+                    addWaitingTime(getTeam().getOffice().getTimeTracker().getCurrTime() - startQ);
+                }
+            }
 
             // if so then ask, otherwise loop again.
             try {
@@ -83,4 +149,6 @@ public class TeamLead extends Developer {
         getTeam().getOffice().getLogger().logAtTime(getName() + " leaves the office.");
         setEndTime(getTeam().getOffice().getTimeTracker().getCurrTime());
     }
+
+
 }

@@ -58,5 +58,7 @@ public class Team {
     	return developers;
     }
 
-
+    public TeamLead getTeamLead() {
+        return teamLead;
+    }
 }

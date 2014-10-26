@@ -13,8 +13,6 @@ public class Developer extends Employee {
 
     private boolean morningMeeting;
 
-    private boolean waitingForQuestion;
-
 
     public Developer(Team team, int devId, CountDownLatch startSignal) {
         super(("Developer " + team.getTeamId() + "" + devId), startSignal);
@@ -23,12 +21,11 @@ public class Developer extends Employee {
         this.timeWaiting = 0;
 
         this.morningMeeting = false;
-        this.waitingForQuestion = false;
 
     }
 
 
-    public void askQuestion() {
+    public void answerQuestion() {
 
     }
     
@@ -85,6 +82,17 @@ public class Developer extends Employee {
 
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
+            else {
+                if (r.nextInt(100) < 1) {
+                    long startQ = getTeam().getOffice().getTimeTracker().getCurrTime();
+                    getTeam().getOffice().getLogger().logAtTime(getName() +
+                            " asks team lead a question.");
+                    getTeam().getTeamLead().askQuestion();
+                    getTeam().getOffice().getLogger().logAtTime(
+                            Thread.currentThread().getName() +"'s question has been answered.");
+                    addWaitingTime(getTeam().getOffice().getTimeTracker().getCurrTime() - startQ);
+                }
+            }
 
             // if so then ask, otherwise loop again.
             try {
