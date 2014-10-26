@@ -120,6 +120,11 @@ public class Developer extends Employee {
         return timeWaiting;
     }
 
+    public int getDevId()
+    {
+        return devId;
+    }
+
     @Override
     public void printLog() {
         System.out.println("------ " + getName() + " Log ------");

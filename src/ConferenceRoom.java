@@ -44,20 +44,19 @@ public class ConferenceRoom {
         }
 	}
 
-	public void holdMeeting(int teamId, Office office, Employee employee)
+	public void holdMeeting(int teamId, Office office, Developer employee)
 	{
-        String id_string = String.valueOf(employee.getId());
         while(!teams_met.contains(teamId))
 		{
 			if (!occupied && teamId == waitList.get(0))
 			{
+                System.out.println("Waiting" + employee.getDevId());
 				occupied = true;
-                    //problem here        if (id_string.charAt(1) == '1')
-
-                    String gather_message = "Team " + teamId + " is gathering for a meeting.";
-                    office.getLogger().logAtTime(gather_message);
+                String gather_message = "Team " + teamId + " is gathering for a team meeting.";
+                office.getLogger().logAtTime(gather_message);
                 teams_met.add(teamId);
-			}
+                System.out.println(teams_met);
+            }
 		}
 
         try {
@@ -68,7 +67,7 @@ public class ConferenceRoom {
             e.printStackTrace();
         }
 
-        if (id_string.charAt(1) == '1')
+        if (employee.getDevId() == 1)
         {
             String start_message = "Team " + teamId + " is starting the meeting.";
             office.getLogger().logAtTime(start_message);
@@ -79,7 +78,7 @@ public class ConferenceRoom {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if (id_string.charAt(1) == '1')
+        if (employee.getDevId() == 1)
         {
             String end_message = "Team " + teamId + " has ended the meeting.";
             office.getLogger().logAtTime(end_message);
