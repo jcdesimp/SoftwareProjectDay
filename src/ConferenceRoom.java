@@ -60,8 +60,6 @@ public class ConferenceRoom {
         }
 
         try {
-            System.out.println(waitList);
-
             team_barriers.get(teamId - 1).await();
         } catch (InterruptedException e) {
             e.printStackTrace();

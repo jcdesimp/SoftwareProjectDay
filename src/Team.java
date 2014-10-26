@@ -23,7 +23,7 @@ public class Team {
         this.developers = new ArrayList<Developer>();
         this.teamLead = new TeamLead(this, 1, startSignal);
         developers.add(teamLead);
-        for (int i = 2; i < 4; i++) {
+        for (int i = 2; i <= 4; i++) {
             developers.add( new Developer(this, i, startSignal) );
         }
     }
