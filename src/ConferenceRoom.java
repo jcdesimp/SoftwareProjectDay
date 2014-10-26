@@ -44,19 +44,25 @@ public class ConferenceRoom {
         }
 	}
 	
-	public void finishMeeting(int teamId)
+	public void holdMeeting(int teamId, Office office)
 	{
 		while(teams_met != 4)
 		{
 			if (!occupied && teamId == waitList.get(0))
 			{
 				occupied = true;
-				System.out.println("Holding team meeting");
+				String gather_message = "Team " + teamId + " is gathering for a meeting.";
+				office.getLogger().logAtTime(gather_message);
+				team_barriers.get(teamId - 1).reset();
 			}
 		}
 		
-		System.out.println("Team meeting start");
-		//Thread.sleep(1);
+		team_barriers.get(teamId - 1).await();
+		String start_message = "Team " + teamId + " is starting the meeting.";
+		office.getLogger().logAtTime(start_message);
+		Thread.sleep(150);
+		String end_message = "Team " + teamId + " has ended the meeting.";
+		office.getLogger().logAtTime(end_message);
 		System.out.println("Team meeting ended");
 		occupied = false;
 		teams_met++;
