@@ -58,7 +58,7 @@ public class Developer extends Employee {
         getTeam().getOffice().getLogger().logAtTime(getName() + " arrives at the office.");
         setArrivalTime(getTeam().getOffice().getTimeTracker().getCurrTime());
 
-        getTeam().getOffice().getConferenceRoom().setupTeamMeeting(getTeam().getTeamId());
+        getTeam().getOffice().getConferenceRoom().setupTeamMeeting(getTeam().getTeamId(), this);
         getTeam().getOffice().getConferenceRoom().holdMeeting(getTeam().getTeamId(), getTeam().getOffice(), this);
 
         while ( getTeam().getOffice().getTimeTracker().getCurrTime() - getArrivalTime() < 4800 ||

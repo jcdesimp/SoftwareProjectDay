@@ -32,9 +32,11 @@ public class ConferenceRoom {
 		waitList = new ArrayList<Integer>();
 	}
 
-	public void setupTeamMeeting(int teamId)
+	public void setupTeamMeeting(int teamId, Developer employee)
 	{
         try {
+            System.out.println("Setup" + employee.getTeam().getTeamId() + employee.getDevId());
+
             team_barriers.get(teamId - 1).await();
             waitList.add(teamId);
         } catch (InterruptedException e) {
@@ -42,17 +44,20 @@ public class ConferenceRoom {
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
-	}
+
+    }
 
 	public void holdMeeting(int teamId, Office office, Developer employee)
 	{
+
         while(!teams_met.contains(teamId))
 		{
-			if (!occupied && teamId == waitList.get(0))
+            if (!occupied && teamId == waitList.get(0))
 			{
                 synchronized (this)
                 {
-                    //System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
+
+                    System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
                     occupied = true;
                     String gather_message = "Team " + teamId + " is gathering for a team meeting.";
                     office.getLogger().logAtTime(gather_message);
@@ -61,6 +66,7 @@ public class ConferenceRoom {
                 }
             }
 		}
+        System.out.println(occupied);
 
         try {
             team_barriers.get(teamId - 1).await();
