@@ -28,7 +28,6 @@ public class ConferenceRoom {
 		this.all_barrier = new CyclicBarrier(13);
 		occupied = false;
 		waitList = new ArrayList<Integer>();
-		used_by = 0;
 	}
 	
 	public void setupTeamMeeting(int teamId)
