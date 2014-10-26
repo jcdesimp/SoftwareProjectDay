@@ -110,6 +110,7 @@ public class TeamLead extends Developer {
                 if(r.nextInt(2) == 0) {
                     getTeam().getOffice().getLogger().logAtTime(getName() +
                             " cannot answer " + answering.getName() +"'s question, asking manager...");
+                    getTeam().getOffice().getProjectManager().askQuestion();
                 }
                 try {
                     waitOnAnswer.await();
@@ -128,7 +129,7 @@ public class TeamLead extends Developer {
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
             else {
-                if (r.nextInt(100) < 1) {
+                if ((getTeam().getOffice().getTimeTracker().getRealCurrTime() < 7050 || ateLunch()) && r.nextInt(100) < 1) {
                     long startQ = getTeam().getOffice().getTimeTracker().getCurrTime();
                     getTeam().getOffice().getLogger().logAtTime(getName() +
                             " asks manager a question.");

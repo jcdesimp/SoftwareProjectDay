@@ -41,7 +41,7 @@ public class TimeTracker extends Thread {
      * Getter for current time
      * @return the current time
      */
-    public long getCurrTime(){
+    public synchronized long getCurrTime(){
         //return System.currentTimeMillis() - currTime;
         //System.out.println(currTime);
         return currTime;
