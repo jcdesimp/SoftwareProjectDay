@@ -90,6 +90,28 @@ public class Manager extends Employee {
                 office.getLogger().logAtTime(getName() + " returns from lunch.");
                 addTimeLunch(office.getTimeTracker().getRealCurrTime() - startTime);
 
+            } else if (!eMeeting1 && office.getTimeTracker().getRealCurrTime() >= 6000) {
+                long start = office.getTimeTracker().getCurrTime();
+                try {
+                    office.getLogger().logAtTime(getName() + " starts executive meeting 1.");
+                    Thread.sleep(600 - (office.getTimeTracker().getRealCurrTime() - 6000) );
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                eMeeting1 = true;
+                office.getLogger().logAtTime(getName() + " returns from executive meeting 1.");
+                addTimeMeeting(office.getTimeTracker().getCurrTime() - start);
+            } else if (!eMeeting2 && office.getTimeTracker().getRealCurrTime() >= 8400) {
+                long start = office.getTimeTracker().getCurrTime();
+                try {
+                    office.getLogger().logAtTime(getName() + " starts executive meeting 2.");
+                    Thread.sleep(600 - (office.getTimeTracker().getRealCurrTime() - 8400) );
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                eMeeting2 = true;
+                office.getLogger().logAtTime(getName() + " returns from executive meeting 2.");
+                addTimeMeeting(office.getTimeTracker().getCurrTime() - start);
             }
 
 
