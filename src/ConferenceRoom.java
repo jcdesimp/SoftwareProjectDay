@@ -57,12 +57,22 @@ public class ConferenceRoom {
 				break;
 			}
 		}
-		
-		team_barriers.get(teamId - 1).await();
-		String start_message = "Team " + teamId + " is starting the meeting.";
+
+        try {
+            team_barriers.get(teamId - 1).await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+        String start_message = "Team " + teamId + " is starting the meeting.";
 		office.getLogger().logAtTime(start_message);
-		Thread.sleep(150);
-		String end_message = "Team " + teamId + " has ended the meeting.";
+        try {
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String end_message = "Team " + teamId + " has ended the meeting.";
 		office.getLogger().logAtTime(end_message);
 		System.out.println("Team meeting ended");
 		occupied = false;
