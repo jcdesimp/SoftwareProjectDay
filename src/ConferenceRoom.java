@@ -54,7 +54,7 @@ public class ConferenceRoom {
 		}
 		
 		System.out.println("Team meeting start");
-		Thread.sleep(1);
+		//Thread.sleep(1);
 		System.out.println("Team meeting ended");
 		occupied = false;
 		waitList.remove(0);

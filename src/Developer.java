@@ -64,20 +64,34 @@ public class Developer extends Employee {
         while ( getTeam().getOffice().getTimeTracker().getCurrTime() - getArrivalTime() < 4800 ||
                 getTeam().getOffice().getTimeTracker().getCurrTime() < 5100 ) {
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
 
             // Check for all time sensitive things first (Lunch, Meetings, Etc)
             // Also check to see of the time sensitive things have already been done,
             // if so don't bother checking the time.
+            if (!ateLunch() && getTeam().getOffice().getTimeTracker().getRealCurrTime() >= 7200) {
+                long startTime = getTeam().getOffice().getTimeTracker().getCurrTime();
+                getTeam().getOffice().getLogger().logAtTime(getName() + " goes to lunch.");
+                try {
+                    Thread.sleep( 300 + r.nextInt((int) (7500 -
+                                                getTeam().getOffice().getTimeTracker().getRealCurrTime())));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                eatLunch();
+                getTeam().getOffice().getLogger().logAtTime(getName() + " returns from lunch.");
+                addTimeLunch(getTeam().getOffice().getTimeTracker().getRealCurrTime() - startTime);
+            }
 
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
 
             // if so then ask, otherwise loop again.
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
         }
