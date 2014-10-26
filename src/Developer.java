@@ -116,4 +116,16 @@ public class Developer extends Employee {
         timeWaiting += tMillis;
     }
 
+    public int getTimeWaiting() {
+        return timeWaiting;
+    }
+
+    @Override
+    public void printLog() {
+        System.out.println("------ " + getName() + " Log ------");
+        System.out.println("  Total time working: " + (getEndTime() - getArrivalTime())/10 + " minutes.");
+        System.out.println("  Time spent at Lunch: " + getTimeLunch()/10 + " minutes.");
+        System.out.println("  Time spent in meetings: " + getTimeMeeting()/10 + " minutes.");
+        System.out.println("  Time spent waiting for answers: " + timeWaiting/10 + " minutes." );
+    }
 }

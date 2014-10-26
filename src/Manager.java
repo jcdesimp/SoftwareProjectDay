@@ -156,4 +156,12 @@ public class Manager extends Employee {
         office.getLogger().logAtTime(getName() + " leaves the office.");
         setEndTime(office.getTimeTracker().getCurrTime());
     }
+
+    @Override
+    public void printLog() {
+        System.out.println("------ " + getName() + " Log ------");
+        System.out.println("  Total time working: " + (getEndTime() - getArrivalTime())/10 + " minutes.");
+        System.out.println("  Time spent at Lunch: " + getTimeLunch()/10 + " minutes.");
+        System.out.println("  Time spent in meetings: " + getTimeMeeting()/10 + " minutes.");
+    }
 }

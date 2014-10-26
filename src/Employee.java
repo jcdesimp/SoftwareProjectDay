@@ -46,6 +46,8 @@ public abstract class Employee extends Thread {
 
     }
 
+    public abstract void printLog();
+
     public CountDownLatch getStartSignal() {
         return startSignal;
     }
@@ -85,5 +87,14 @@ public abstract class Employee extends Thread {
     public void eatLunch() {
         ateLunch = true;
     }
+
+    public long getTimeLunch() {
+        return timeLunch;
+    }
+
+    public long getTimeMeeting() {
+        return timeMeeting;
+    }
+
 
 }
