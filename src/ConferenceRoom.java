@@ -15,7 +15,9 @@ public class ConferenceRoom {
 	private boolean occupied;
 	
 	private ArrayList<Integer> waitList;
-		
+	
+	int teams_met;
+	
 	public ConferenceRoom()
 	{
 		team_barriers = new ArrayList<CyclicBarrier>();
@@ -24,7 +26,7 @@ public class ConferenceRoom {
 			team_barriers.add(new CyclicBarrier(4));
 		}
 		
-		
+		teams_met = 0;
 		this.all_barrier = new CyclicBarrier(13);
 		occupied = false;
 		waitList = new ArrayList<Integer>();
@@ -44,9 +46,9 @@ public class ConferenceRoom {
 	
 	public void holdMeeting(int teamId, Office office)
 	{
-		while(teamId != waitList.get(0))
+		while(teams_met != 4)
 		{
-			if (!occupied)
+			if (!occupied && teamId == waitList.get(0))
 			{
 				occupied = true;
 				String gather_message = "Team " + teamId + " is gathering for a meeting.";
@@ -63,6 +65,7 @@ public class ConferenceRoom {
 		office.getLogger().logAtTime(end_message);
 		System.out.println("Team meeting ended");
 		occupied = false;
+		teams_met++;
 		waitList.remove(0);
 		
 	}
