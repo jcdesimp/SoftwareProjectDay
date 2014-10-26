@@ -12,12 +12,10 @@ public class ConferenceRoom {
 	//Everyone meeting, a total of 13 people (12developers + 1 manager)
 	private CyclicBarrier all_barrier;
 	
-	public boolean occupied;
+	private boolean occupied;
 	
-	public ArrayList<Team> waitList;
-	
-	public int used_by;
-	
+	private ArrayList<Integer> waitList;
+		
 	public ConferenceRoom()
 	{
 		team_barriers = new ArrayList<CyclicBarrier>();
@@ -29,7 +27,7 @@ public class ConferenceRoom {
 		
 		this.all_barrier = new CyclicBarrier(13);
 		occupied = false;
-		waitList = new ArrayList<Team>();
+		waitList = new ArrayList<Integer>();
 		used_by = 0;
 	}
 	
@@ -37,7 +35,7 @@ public class ConferenceRoom {
 	{
         try {
             team_barriers.get(teamId - 1).await();
-            waitList.add(((Developer) Thread.currentThread()).getTeam());
+            waitList.add(teamId);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
@@ -45,23 +43,26 @@ public class ConferenceRoom {
         }
 	}
 	
-	public void finishMeeting()
+	public void finishMeeting(int teamId)
 	{
-		if (waitList.size() > 0)
+		while(teamId != waitList.get(0))
 		{
-			startMeeting(waitList.remove(0));
+			if (!occupied)
+			{
+				occupied = true;
+				System.out.println("Holding team meeting");
+			}
 		}
+		
+		System.out.println("Team meeting start");
+		Thread.sleep(1);
+		System.out.println("Team meeting ended");
+		occupied = false;
+		waitList.remove(0);
+		
 	}
 	
-	public void startMeeting(Team team)
-	{
-		for (Developer d : team.getDevelopers())
-		{
-			//make d busy
-		}
-	}
-	
-	public void joinAllMeeting()
+	public void setupAllMeeting()
 	{
         try {
             all_barrier.await();
