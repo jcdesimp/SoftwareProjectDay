@@ -128,7 +128,7 @@ public class TeamLead extends Developer {
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
             else {
-                if (getTeam().getOffice().getTimeTracker().getCurrTime() < 4950 && r.nextInt(100) < 1) {
+                if (r.nextInt(100) < 1) {
                     long startQ = getTeam().getOffice().getTimeTracker().getCurrTime();
                     getTeam().getOffice().getLogger().logAtTime(getName() +
                             " asks manager a question.");
