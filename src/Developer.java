@@ -80,13 +80,13 @@ public class Developer extends Employee {
                 }
                 eatLunch();
                 getTeam().getOffice().getLogger().logAtTime(getName() + " returns from lunch.");
-                addTimeLunch(getTeam().getOffice().getTimeTracker().getRealCurrTime() - startTime);
+                addTimeLunch(getTeam().getOffice().getTimeTracker().getCurrTime() - startTime);
             }
 
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
             else {
-                if (r.nextInt(100) < 1) {
+                if (getTeam().getOffice().getTimeTracker().getCurrTime() < 4950 && r.nextInt(100) < 1) {
                     long startQ = getTeam().getOffice().getTimeTracker().getCurrTime();
                     getTeam().getOffice().getLogger().logAtTime(getName() +
                             " asks team lead a question.");
@@ -110,6 +110,7 @@ public class Developer extends Employee {
         // Take care of pre-departure tasks
         getTeam().getOffice().getLogger().logAtTime(getName() + " leaves the office.");
         setEndTime(getTeam().getOffice().getTimeTracker().getCurrTime());
+        printLog();
     }
 
     public void addWaitingTime(long tMillis) {
@@ -127,10 +128,12 @@ public class Developer extends Employee {
 
     @Override
     public void printLog() {
-        System.out.println("------ " + getName() + " Log ------");
-        System.out.println("  Total time working: " + (getEndTime() - getArrivalTime())/10 + " minutes.");
-        System.out.println("  Time spent at Lunch: " + getTimeLunch()/10 + " minutes.");
-        System.out.println("  Time spent in meetings: " + getTimeMeeting()/10 + " minutes.");
-        System.out.println("  Time spent waiting for answers: " + timeWaiting/10 + " minutes." );
+        System.out.println("------ " + getName() + " Log ------\n" +
+            "  Total time working: " + (getEndTime() - getArrivalTime())/10 + " minutes.\n" +
+            "  Time spent at Lunch: " + getTimeLunch()/10 + " minutes.\n" +
+            "  Time spent in meetings: " + getTimeMeeting()/10 + " minutes.\n" +
+            "  Time spent waiting for answers: " + timeWaiting/10 + " minutes.\n" +
+            "---------------------------- "
+        );
     }
 }

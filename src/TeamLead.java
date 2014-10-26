@@ -95,7 +95,7 @@ public class TeamLead extends Developer {
                 eatLunch();
 
                 getTeam().getOffice().getLogger().logAtTime(getName() + " returns from lunch.");
-                addTimeLunch(getTeam().getOffice().getTimeTracker().getRealCurrTime() - startTime);
+                addTimeLunch(getTeam().getOffice().getTimeTracker().getCurrTime() - startTime);
             }
 
             // See if anyone is waiting to ask you a question
@@ -128,7 +128,7 @@ public class TeamLead extends Developer {
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
             else {
-                if (r.nextInt(100) < 1) {
+                if (getTeam().getOffice().getTimeTracker().getCurrTime() < 4950 && r.nextInt(100) < 1) {
                     long startQ = getTeam().getOffice().getTimeTracker().getCurrTime();
                     getTeam().getOffice().getLogger().logAtTime(getName() +
                             " asks manager a question.");

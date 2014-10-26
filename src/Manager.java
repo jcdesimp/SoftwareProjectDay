@@ -88,7 +88,7 @@ public class Manager extends Employee {
                 eatLunch();
 
                 office.getLogger().logAtTime(getName() + " returns from lunch.");
-                addTimeLunch(office.getTimeTracker().getRealCurrTime() - startTime);
+                addTimeLunch(office.getTimeTracker().getCurrTime() - startTime);
 
             } else if (!eMeeting1 && office.getTimeTracker().getRealCurrTime() >= 6000) {
                 long start = office.getTimeTracker().getCurrTime();
@@ -155,13 +155,16 @@ public class Manager extends Employee {
         // Take care of pre-departure tasks
         office.getLogger().logAtTime(getName() + " leaves the office.");
         setEndTime(office.getTimeTracker().getCurrTime());
+        printLog();
     }
 
     @Override
     public void printLog() {
-        System.out.println("------ " + getName() + " Log ------");
-        System.out.println("  Total time working: " + (getEndTime() - getArrivalTime())/10 + " minutes.");
-        System.out.println("  Time spent at Lunch: " + getTimeLunch()/10 + " minutes.");
-        System.out.println("  Time spent in meetings: " + getTimeMeeting()/10 + " minutes.");
+        System.out.println("------ " + getName() + " Log ------\n" +
+                "  Total time working: " + (getEndTime() - getArrivalTime())/10 + " minutes.\n" +
+                "  Time spent at Lunch: " + getTimeLunch()/10 + " minutes.\n" +
+                "  Time spent in meetings: " + getTimeMeeting()/10 + " minutes.\n" +
+                "---------------------------- "
+        );
     }
 }
