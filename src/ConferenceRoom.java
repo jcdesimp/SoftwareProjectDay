@@ -54,6 +54,7 @@ public class ConferenceRoom {
 				String gather_message = "Team " + teamId + " is gathering for a meeting.";
 				office.getLogger().logAtTime(gather_message);
 				team_barriers.get(teamId - 1).reset();
+				break;
 			}
 		}
 		
