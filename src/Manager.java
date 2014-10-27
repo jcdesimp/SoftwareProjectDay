@@ -14,6 +14,7 @@ public class Manager extends Employee {
     private boolean leadMeeting;
     private boolean eMeeting1;
     private boolean eMeeting2;
+    private boolean reported;
 
     private LinkedBlockingQueue<Thread> waitingQuestions;
     private Thread answering;
@@ -27,6 +28,7 @@ public class Manager extends Employee {
         this.eMeeting2 = false;
         this.waitingQuestions = new LinkedBlockingQueue<Thread>();
         this.waitOnAnswer = new CyclicBarrier(2);
+        this.reported = false;
     }
 
     public void askQuestion() {
@@ -113,10 +115,13 @@ public class Manager extends Employee {
                 eMeeting2 = true;
                 office.getLogger().logAtTime(getName() + " returns from executive meeting 2.");
                 addTimeMeeting(office.getTimeTracker().getCurrTime() - start);
-            } else if (office.getTimeTracker().getRealCurrTime() >= 5700)
+            } else if (!reported && office.getTimeTracker().getRealCurrTime() >= 9750)
             {
                 office.getConferenceRoom().setupAllMeeting();
+                office.getLogger().logAtTime("The project status update meeting is now starting.");
                 office.getConferenceRoom().holdAllMeeting(office);
+                office.getLogger().logAtTime("The project status update meeting has finished.");
+                reported = true;
             }
 
 

@@ -7,6 +7,7 @@ import java.util.concurrent.*;
 public class TeamLead extends Developer {
 
     private boolean managerMeeting;
+    private boolean reported;
 
     private LinkedBlockingQueue<Thread> waitingQuestions;
     private Thread answering;
@@ -17,6 +18,7 @@ public class TeamLead extends Developer {
         this.managerMeeting = false;
         this.waitingQuestions = new LinkedBlockingQueue<Thread>();
         this.waitOnAnswer = new CyclicBarrier(2);
+        this.reported = false;
     }
 
 
@@ -69,10 +71,10 @@ public class TeamLead extends Developer {
         getTeam().getOffice().getLogger().logAtTime(getName() + " arrives at the office.");
         setArrivalTime(getTeam().getOffice().getTimeTracker().getCurrTime());
 
-
+/**
         getTeam().getOffice().getConferenceRoom().setupTeamMeeting(getTeam().getTeamId(), this);
         getTeam().getOffice().getConferenceRoom().holdMeeting(getTeam().getTeamId(), getTeam().getOffice(), this);
-
+**/
         while ( getTeam().getOffice().getTimeTracker().getCurrTime() - getArrivalTime() < 4800 ||
                 getTeam().getOffice().getTimeTracker().getCurrTime() < 5100 ) {
 
@@ -121,9 +123,15 @@ public class TeamLead extends Developer {
                 }
 
 
+
             }
 
-
+            else if (getTeam().getOffice().getTimeTracker().getRealCurrTime() >= 9750 && !reported)
+            {
+                getTeam().getOffice().getConferenceRoom().setupAllMeeting();
+                getTeam().getOffice().getConferenceRoom().holdAllMeeting(getTeam().getOffice());
+                reported = true;
+            }
 
 
             // If there are no time sensitive things then the "else" will determine
@@ -139,6 +147,8 @@ public class TeamLead extends Developer {
                     addWaitingTime(getTeam().getOffice().getTimeTracker().getCurrTime() - startQ);
                 }
             }
+
+
 
             // if so then ask, otherwise loop again.
             try {

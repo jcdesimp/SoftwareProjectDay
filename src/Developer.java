@@ -59,10 +59,10 @@ public class Developer extends Employee {
         // Take care of arrival tasks
         getTeam().getOffice().getLogger().logAtTime(getName() + " arrives at the office.");
         setArrivalTime(getTeam().getOffice().getTimeTracker().getCurrTime());
-
+/**
         getTeam().getOffice().getConferenceRoom().setupTeamMeeting(getTeam().getTeamId(), this);
         getTeam().getOffice().getConferenceRoom().holdMeeting(getTeam().getTeamId(), getTeam().getOffice(), this);
-
+**/
         while ( getTeam().getOffice().getTimeTracker().getCurrTime() - getArrivalTime() < 4800 ||
                 getTeam().getOffice().getTimeTracker().getCurrTime() < 5100 ) {
 
@@ -85,7 +85,7 @@ public class Developer extends Employee {
                 addTimeLunch(getTeam().getOffice().getTimeTracker().getCurrTime() - startTime);
             }
 
-            if (team.getOffice().getTimeTracker().getRealCurrTime() >= 9600 && !reported)
+            if (team.getOffice().getTimeTracker().getRealCurrTime() >= 9750 && !reported)
             {
                 team.getOffice().getConferenceRoom().setupAllMeeting();
                 team.getOffice().getConferenceRoom().holdAllMeeting(team.getOffice());

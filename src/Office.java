@@ -42,7 +42,6 @@ public class Office {
         }
     }
 
-
     public void holdLeadMeeting(int teamId, Office office, Developer employee)
     {
 
@@ -77,7 +76,6 @@ public class Office {
             office.getLogger().logAtTime(end_message);
         }
     }
-    
     public void startDay() {
         timeTracker.start();
         projectManager.start();
