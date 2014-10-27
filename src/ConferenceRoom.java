@@ -12,12 +12,9 @@ public class ConferenceRoom {
 
 	//Everyone meeting, a total of 13 people (12developers + 1 manager)
 	private CyclicBarrier all_barrier;
-
 	private boolean occupied;
-
-	private LinkedBlockingQueue<Integer> waitList;
-
-	private ArrayList<Integer> teams_met;
+    private LinkedBlockingQueue<Integer> waitList;
+    private ArrayList<Integer> teams_met;
 
 	public ConferenceRoom()
 	{
@@ -33,6 +30,12 @@ public class ConferenceRoom {
 		waitList = new LinkedBlockingQueue<Integer>();
 	}
 
+    /**
+     *
+     * @param teamId employee's team id
+     * @param employee
+     * @param leader_flag to see if the employee is a teamlead
+     */
     public void setupTeamMeeting(int teamId, Developer employee, boolean leader_flag)
     {
         try {
@@ -45,8 +48,13 @@ public class ConferenceRoom {
         }
     }
 
-
-
+    /**
+     *
+     * @param teamId
+     * @param office
+     * @param employee
+     * @param leader_flag
+     */
 	public void holdMeeting(int teamId, Office office, Developer employee, boolean leader_flag)
 	{
 
@@ -97,8 +105,9 @@ public class ConferenceRoom {
         }
     }
 
-
-
+    /**
+     *
+     */
 	public void setupAllMeeting()
 	{
         try {
@@ -110,6 +119,10 @@ public class ConferenceRoom {
         }
     }
 
+    /**
+     *
+     * @param office
+     */
     public void holdAllMeeting(Office office)
     {
         try {
