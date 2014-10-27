@@ -1,7 +1,9 @@
-The compilation of our program includes the following files:
+Compile the program with the following command:
+javac ConferenceRoom.java Developer.java Employee.java Manager.java Office.java OfficeLogger.java Team.java TeamLead.java TimeTracker.java Main.java
 
-ConferenceRoom.java, Developer.java, Employee.java, Manager.java, Office.java, OfficeLogger.java,
-Team.java, TeamLead.java, TimeTracker.java, and Main.java.
+Execute the program with the following command:
+java Main
+
 
 The program is to be executed in Main.java.
 
@@ -10,7 +12,7 @@ and preparing to start the "day." It then starts all the threads through
 a latch. There is no user input needed.
 
 There are a few known constants:
-12 - number of employees, with 3 teams containing 4 people (and 1 lead each)
+13 - number of employees, with 3 teams containing 4 people (and 1 lead each), and the manager
 1 - number of Managers
 4 - number of Team Leads
 1 - number of conference rooms
