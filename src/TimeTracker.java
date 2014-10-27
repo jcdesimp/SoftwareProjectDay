@@ -59,8 +59,10 @@ public class TimeTracker extends Thread {
     }
 
 
-
-
+    /**
+     * Get a well-formatted timestamp of the curent time
+     * @return String of the timestamp
+     */
     public String getTimestamp() {
         long timeNow = getRealCurrTime();
         long hours = timeNow / 600;

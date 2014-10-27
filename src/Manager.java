@@ -11,7 +11,6 @@ public class Manager extends Employee {
 
     private Office office;
 
-    private boolean leadMeeting;
     private boolean eMeeting1;
     private boolean eMeeting2;
     private boolean reported;
@@ -20,10 +19,14 @@ public class Manager extends Employee {
     private Thread answering;
     private CyclicBarrier waitOnAnswer;
 
+    /**
+     * Constructor for Manager
+     * @param office that the manager is in
+     * @param startSignal Latch to start all threads at once
+     */
     public Manager(Office office, CountDownLatch startSignal) {
         super("Manager", startSignal);
         this.office = office;
-        this.leadMeeting = false;
         this.eMeeting1 = false;
         this.eMeeting2 = false;
         this.waitingQuestions = new LinkedBlockingQueue<Thread>();
@@ -31,6 +34,9 @@ public class Manager extends Employee {
         this.reported = false;
     }
 
+    /**
+     * called when someone asks a question of the manager
+     */
     public void askQuestion() {
         waitingQuestions.add(Thread.currentThread());
         while(answering == null || !answering.getName().equals(Thread.currentThread().getName())) {
@@ -54,6 +60,9 @@ public class Manager extends Employee {
 
     }
 
+    /**
+     * Overriding run method from Thread
+     */
     @Override
     public void run() {
 
@@ -180,6 +189,9 @@ public class Manager extends Employee {
         printLog();
     }
 
+    /**
+     * Print the statistics of Manager, overrides from Employee
+     */
     @Override
     public void printLog() {
         System.out.println("------ " + getName() + " Log ------\n" +

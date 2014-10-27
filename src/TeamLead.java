@@ -13,6 +13,12 @@ public class TeamLead extends Developer {
     private Thread answering;
     private CyclicBarrier waitOnAnswer;
 
+    /**
+     * Constructor for team lead
+     * @param team that leader is leading
+     * @param devId of team lead )should always be 1)
+     * @param startSignal to start all threads at once
+     */
     public TeamLead(Team team, int devId, CountDownLatch startSignal) {
         super(team, devId, startSignal);
         this.managerMeeting = false;
@@ -21,9 +27,9 @@ public class TeamLead extends Developer {
         this.reported = false;
     }
 
-
-
-
+    /**
+     * Called when another dev asks this lead a question
+     */
     public void askQuestion() {
         waitingQuestions.add(Thread.currentThread());
         while(answering == null || !answering.getName().equals(Thread.currentThread().getName())) {
@@ -47,6 +53,9 @@ public class TeamLead extends Developer {
 
     }
 
+    /**
+     * run method overriden from Thread
+     */
     @Override
     public void run() {
 

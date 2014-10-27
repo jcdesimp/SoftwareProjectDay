@@ -16,6 +16,9 @@ public class ConferenceRoom {
     private LinkedBlockingQueue<Integer> waitList;
     private ArrayList<Integer> teams_met;
 
+    /**
+     * Constructor for conference room
+     */
 	public ConferenceRoom()
 	{
 		team_barriers = new ArrayList<CyclicBarrier>();
@@ -31,9 +34,9 @@ public class ConferenceRoom {
 	}
 
     /**
-     *
+     * Method to setup a team meeting
      * @param teamId employee's team id
-     * @param employee
+     * @param employee that is setting up the meeting
      * @param leader_flag to see if the employee is a teamlead
      */
     public void setupTeamMeeting(int teamId, Developer employee, boolean leader_flag)
@@ -49,11 +52,11 @@ public class ConferenceRoom {
     }
 
     /**
-     *
-     * @param teamId
-     * @param office
-     * @param employee
-     * @param leader_flag
+     * Method to hold the actual meeting
+     * @param teamId of team that is meeting
+     * @param office that team is a part of
+     * @param employee holding the meeting
+     * @param leader_flag is this employee the leader?
      */
 	public void holdMeeting(int teamId, Office office, Developer employee, boolean leader_flag)
 	{
@@ -106,7 +109,7 @@ public class ConferenceRoom {
     }
 
     /**
-     *
+     * Setup the update meeting that everyone is in
      */
 	public void setupAllMeeting()
 	{
@@ -120,8 +123,8 @@ public class ConferenceRoom {
     }
 
     /**
-     *
-     * @param office
+     * hold the actual update meeting
+     * @param office that the emloyees work in
      */
     public void holdAllMeeting(Office office)
     {

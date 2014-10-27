@@ -15,6 +15,12 @@ public class Developer extends Employee {
 
     private boolean reported;
 
+    /**
+     * Developer constructor
+     * @param team that developer is in
+     * @param devId id of this developer
+     * @param startSignal latch to make all threads start at once
+     */
     public Developer(Team team, int devId, CountDownLatch startSignal) {
         super(("Developer " + team.getTeamId() + "" + devId), startSignal);
         this.devId = devId;
@@ -27,16 +33,19 @@ public class Developer extends Employee {
     }
 
 
-    public void answerQuestion() {
-
-    }
-    
+    /**
+     * Get the team this developer is part of
+     * @return Team that dev is on
+     */
     public Team getTeam()
     {
     	return team;
     }
 
 
+    /**
+     * run method overridden from Thread
+     */
     @Override
     public void run() {
 
@@ -128,19 +137,35 @@ public class Developer extends Employee {
         printLog();
     }
 
+    /**
+     * Add time to total waiting time
+     * @param tMillis to add
+     */
     public void addWaitingTime(long tMillis) {
         timeWaiting += tMillis;
     }
 
+    /**
+     * get the amount of time waiting for an answer
+     * @return milliseconds of time
+     */
     public int getTimeWaiting() {
         return timeWaiting;
     }
 
+    /**
+     * Get the ID of the developer
+     * @return int id
+     */
     public int getDevId()
     {
         return devId;
     }
 
+    /**
+     * print the statistical data of the developer
+     * Overridden from Employee
+     */
     @Override
     public void printLog() {
         System.out.println("------ " + getName() + " Log ------\n" +

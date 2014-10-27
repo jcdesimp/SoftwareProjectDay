@@ -30,6 +30,9 @@ public class Office {
 
     }
 
+    /**
+     * Called by team leads to join the lead meeting
+     */
     public void joinLeadMeeting() {
         try {
             leadMeeting.await();
@@ -48,7 +51,9 @@ public class Office {
         }
     }
 
-
+    /**
+     * Called by manager to start the lead meeting
+     */
     public void holdLeadMeeting() {
         try {
             leadMeeting.await();
@@ -74,7 +79,10 @@ public class Office {
 
     }
 
-
+    /**
+     * Called to "Start the day!"
+     * Starts all the threads in the office.
+     */
     public void startDay() {
         timeTracker.start();
         projectManager.start();
@@ -84,18 +92,34 @@ public class Office {
 
     }
 
+    /**
+     * Get the timeTracker of the office
+     * @return the TimeTracker
+     */
     public TimeTracker getTimeTracker() {
         return timeTracker;
     }
 
+    /**
+     * Get the officeLogger
+     * @return OfficeLogger
+     */
     public OfficeLogger getLogger() {
         return logger;
     }
-    
+
+    /**
+     * Get the one office conference room
+     * @return ConferenceRoom
+     */
     public ConferenceRoom getConferenceRoom() {
     	return confRoom;
     }
 
+    /**
+     * Get the projectManager of the office
+     * @return ProjectManager
+     */
     public Manager getProjectManager() {
         return projectManager;
     }
