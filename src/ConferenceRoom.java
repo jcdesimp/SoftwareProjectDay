@@ -56,7 +56,6 @@ public class ConferenceRoom {
 			{
                 synchronized (this)
                 {
-
                     System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
                     occupied = true;
                     String gather_message = "Team " + teamId + " is gathering for a team meeting.";
@@ -107,5 +106,18 @@ public class ConferenceRoom {
         }
     }
 
+    public void holdAllMeeting(Office office)
+    {
+        try {
+            all_barrier.await();
+            office.getLogger().logAtTime("The project status update meeting is now starting.");
+            Thread.sleep(150);
+            office.getLogger().logAtTime("The project status update meeting has finished.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

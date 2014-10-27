@@ -113,6 +113,10 @@ public class Manager extends Employee {
                 eMeeting2 = true;
                 office.getLogger().logAtTime(getName() + " returns from executive meeting 2.");
                 addTimeMeeting(office.getTimeTracker().getCurrTime() - start);
+            } else if (office.getTimeTracker().getRealCurrTime() >= 5700)
+            {
+                office.getConferenceRoom().setupAllMeeting();
+                office.getConferenceRoom().holdAllMeeting(office);
             }
 
 
@@ -140,6 +144,7 @@ public class Manager extends Employee {
                 }
 
 
+
             }
             // If there are no time sensitive things then do
             // "managerial tasks" and loop again.
@@ -152,6 +157,8 @@ public class Manager extends Employee {
 
 
         }
+
+
 
         // Take care of pre-departure tasks
         office.getLogger().logAtTime(getName() + " leaves the office.");
