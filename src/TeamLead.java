@@ -79,8 +79,8 @@ public class TeamLead extends Developer {
 
 
         long meetStart = getTeam().getOffice().getTimeTracker().getCurrTime();
-        getTeam().getOffice().getConferenceRoom().setupTeamMeeting(getTeam().getTeamId(), this);
-        getTeam().getOffice().getConferenceRoom().holdMeeting(getTeam().getTeamId(), getTeam().getOffice(), this);
+        getTeam().getOffice().getConferenceRoom().setupTeamMeeting(getTeam().getTeamId(), this, true);
+        getTeam().getOffice().getConferenceRoom().holdMeeting(getTeam().getTeamId(), getTeam().getOffice(), this, true);
         addTimeMeeting(getTeam().getOffice().getTimeTracker().getCurrTime() - meetStart);
 
         while ( getTeam().getOffice().getTimeTracker().getCurrTime() - getArrivalTime() < 4800 ||

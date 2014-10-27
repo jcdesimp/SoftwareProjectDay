@@ -33,38 +33,40 @@ public class ConferenceRoom {
 		waitList = new LinkedBlockingQueue<Integer>();
 	}
 
-	public void setupTeamMeeting(int teamId, Developer employee)
-	{
+    public void setupTeamMeeting(int teamId, Developer employee, boolean leader_flag)
+    {
         try {
             //System.out.println("Setup" + employee.getTeam().getTeamId() + employee.getDevId());
-
             team_barriers.get(teamId - 1).await();
-            waitList.add(teamId); //todo print statement seems to  have duplicates
+            if (leader_flag) waitList.add(teamId);
             System.out.println(waitList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
-
     }
 
-	public void holdMeeting(int teamId, Office office, Developer employee)
+
+
+	public void holdMeeting(int teamId, Office office, Developer employee, boolean leader_flag)
 	{
 
         while(!teams_met.contains(teamId))
 		{
-            if (!occupied && teamId == waitList.peek())
-			{
-                synchronized (this)
+            if (waitList.size() != 0)
+            {
+                if (!occupied && teamId == waitList.peek())
                 {
-
-                    //System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
-                    occupied = true;
-                    String gather_message = Thread.currentThread().getName() + " is gathering for a team meeting.";
-                    office.getLogger().logAtTime(gather_message);
-                    teams_met.add(teamId);
-                    //System.out.println(teams_met);
+                    synchronized (this)
+                    {
+                        //System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
+                        occupied = true;
+                        String gather_message = Thread.currentThread().getName() + " is gathering for a team meeting.";
+                        office.getLogger().logAtTime(gather_message);
+                        teams_met.add(teamId);
+                        //System.out.println(teams_met);
+                    }
                 }
             }
 		}
@@ -95,8 +97,16 @@ public class ConferenceRoom {
             office.getLogger().logAtTime(end_message);
         }
         occupied = false;
-		waitList.poll();
-	}
+        if (leader_flag) {
+            System.out.println("Before!");
+            System.out.println(waitList);
+            waitList.poll();
+            System.out.println("After!");
+            System.out.println(waitList);
+        }
+    }
+
+
 
 	public void setupAllMeeting()
 	{
