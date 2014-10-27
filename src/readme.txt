@@ -12,7 +12,7 @@ and preparing to start the "day." It then starts all the threads through
 a latch. There is no user input needed.
 
 There are a few known constants:
-13 - number of employees, with 3 teams containing 4 people (and 1 lead each), and the manager
+12 - number of developers, with 3 teams containing 4 people (and 1 lead each)
 1 - number of Managers
 4 - number of Team Leads
 1 - number of conference rooms
