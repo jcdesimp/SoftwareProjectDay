@@ -13,6 +13,7 @@ public class Developer extends Employee {
 
     private boolean morningMeeting;
 
+    private boolean reported;
 
     public Developer(Team team, int devId, CountDownLatch startSignal) {
         super(("Developer " + team.getTeamId() + "" + devId), startSignal);
@@ -22,6 +23,7 @@ public class Developer extends Employee {
 
         this.morningMeeting = false;
 
+        this.reported = false;
     }
 
 
@@ -83,6 +85,14 @@ public class Developer extends Employee {
                 addTimeLunch(getTeam().getOffice().getTimeTracker().getCurrTime() - startTime);
             }
 
+            if (team.getOffice().getTimeTracker().getRealCurrTime() >= 9600 && !reported)
+            {
+                team.getOffice().getConferenceRoom().setupAllMeeting();
+                team.getOffice().getConferenceRoom().holdAllMeeting(team.getOffice());
+                reported = true;
+            }
+
+
             // If there are no time sensitive things then the "else" will determine
             // Whether or not a question should be asked.
             else {
@@ -106,6 +116,7 @@ public class Developer extends Employee {
 
 
         }
+
 
         // Take care of pre-departure tasks
         getTeam().getOffice().getLogger().logAtTime(getName() + " leaves the office.");
