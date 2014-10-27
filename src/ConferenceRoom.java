@@ -124,7 +124,7 @@ public class ConferenceRoom {
 
     /**
      * hold the actual update meeting
-     * @param office that the emloyees work in
+     * @param office that the employees work in
      */
     public void holdAllMeeting(Office office)
     {
