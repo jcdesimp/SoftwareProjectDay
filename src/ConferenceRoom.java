@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * File created by jcdesimp on 10/24/14.
@@ -14,9 +15,9 @@ public class ConferenceRoom {
 
 	private boolean occupied;
 
-	private ArrayList<Integer> waitList;
+	private LinkedBlockingQueue<Integer> waitList;
 
-	ArrayList<Integer> teams_met;
+	private ArrayList<Integer> teams_met;
 
 	public ConferenceRoom()
 	{
@@ -29,16 +30,17 @@ public class ConferenceRoom {
 		teams_met = new ArrayList<Integer>();
 		this.all_barrier = new CyclicBarrier(13);
 		occupied = false;
-		waitList = new ArrayList<Integer>();
+		waitList = new LinkedBlockingQueue<Integer>();
 	}
 
 	public void setupTeamMeeting(int teamId, Developer employee)
 	{
         try {
-            System.out.println("Setup" + employee.getTeam().getTeamId() + employee.getDevId());
+            //System.out.println("Setup" + employee.getTeam().getTeamId() + employee.getDevId());
 
             team_barriers.get(teamId - 1).await();
-            waitList.add(teamId);
+            waitList.add(teamId); //todo print statement seems to  have duplicates
+            System.out.println(waitList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
@@ -52,21 +54,21 @@ public class ConferenceRoom {
 
         while(!teams_met.contains(teamId))
 		{
-            if (!occupied && teamId == waitList.get(0))
+            if (!occupied && teamId == waitList.peek())
 			{
                 synchronized (this)
                 {
 
-                    System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
+                    //System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
                     occupied = true;
-                    String gather_message = "Team " + teamId + " is gathering for a team meeting.";
+                    String gather_message = Thread.currentThread().getName() + " is gathering for a team meeting.";
                     office.getLogger().logAtTime(gather_message);
                     teams_met.add(teamId);
                     //System.out.println(teams_met);
                 }
             }
 		}
-        System.out.println(occupied);
+       // System.out.println(occupied);
 
         try {
             team_barriers.get(teamId - 1).await();
@@ -93,7 +95,7 @@ public class ConferenceRoom {
             office.getLogger().logAtTime(end_message);
         }
         occupied = false;
-		waitList.remove(0);
+		waitList.poll();
 	}
 
 	public void setupAllMeeting()
