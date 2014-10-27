@@ -174,6 +174,7 @@ public class TeamLead extends Developer {
         // Take care of pre-departure tasks
         getTeam().getOffice().getLogger().logAtTime(getName() + " leaves the office.");
         setEndTime(getTeam().getOffice().getTimeTracker().getCurrTime());
+        printLog();
     }
 
 
