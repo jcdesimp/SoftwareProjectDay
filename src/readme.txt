@@ -20,8 +20,8 @@ There are a few known constants:
 The program prints out several statements anytime an event occurs, like
 an employee asking a question or a manager going to lunch.
 When defining the different workers, we assign them a number for their
-team and position. One example is Developer "42" - He is the second
-developer on team 4. Team leads are considered the first developer in
+team and position. One example is Developer "32" - He is the second
+developer on team 3. Team leads are considered the first developer in
 their team. At the end of our program, work logs are printed for all team leads and managers.
 
 Here's a sample output of our program:
