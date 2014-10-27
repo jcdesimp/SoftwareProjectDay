@@ -36,10 +36,8 @@ public class ConferenceRoom {
     public void setupTeamMeeting(int teamId, Developer employee, boolean leader_flag)
     {
         try {
-            //System.out.println("Setup" + employee.getTeam().getTeamId() + employee.getDevId());
             team_barriers.get(teamId - 1).await();
             if (leader_flag) waitList.add(teamId);
-            System.out.println(waitList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
@@ -60,17 +58,14 @@ public class ConferenceRoom {
                 {
                     synchronized (this)
                     {
-                        //System.out.println("Waiting" + employee.getTeam().getTeamId() + employee.getDevId());
                         occupied = true;
                         String gather_message = Thread.currentThread().getName() + " is gathering for a team meeting.";
                         office.getLogger().logAtTime(gather_message);
                         teams_met.add(teamId);
-                        //System.out.println(teams_met);
                     }
                 }
             }
 		}
-       // System.out.println(occupied);
 
         try {
             team_barriers.get(teamId - 1).await();
@@ -98,11 +93,7 @@ public class ConferenceRoom {
         }
         occupied = false;
         if (leader_flag) {
-            System.out.println("Before!");
-            System.out.println(waitList);
             waitList.poll();
-            System.out.println("After!");
-            System.out.println(waitList);
         }
     }
 
