@@ -113,9 +113,7 @@ public class ConferenceRoom {
     {
         try {
             all_barrier.await();
-            office.getLogger().logAtTime("The project status update meeting is now starting.");
             Thread.sleep(150);
-            office.getLogger().logAtTime("The project status update meeting has finished.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
