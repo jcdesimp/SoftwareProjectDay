@@ -1,4 +1,10 @@
-The program to be executed is in Main.java.
+The compilation of our program includes the following files:
+
+ConferenceRoom.java, Developer.java, Employee.java, Manager.java, Office.java, OfficeLogger.java,
+Team.java, TeamLead.java, TimeTracker.java.
+
+The program is to be executed in Main.java.
+
 When the program is executed, it begins immediately initializing objects
 and preparing to start the "day." It then starts all the threads through
 a latch. There is no user input needed.
