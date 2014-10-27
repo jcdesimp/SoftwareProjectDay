@@ -134,11 +134,14 @@ public class TeamLead extends Developer {
 
             }
 
-            else if (getTeam().getOffice().getTimeTracker().getRealCurrTime() >= 9750 && !reported)
+            else if (getTeam().getOffice().getTimeTracker().getRealCurrTime() >= 9600 && !reported)
             {
+                getTeam().getOffice().getLogger().logAtTime(getName() + " goes to status meeting.");
+                meetStart = getTeam().getOffice().getTimeTracker().getCurrTime();
                 getTeam().getOffice().getConferenceRoom().setupAllMeeting();
                 getTeam().getOffice().getConferenceRoom().holdAllMeeting(getTeam().getOffice());
                 reported = true;
+                addTimeMeeting(getTeam().getOffice().getTimeTracker().getCurrTime() - meetStart);
             }
 
 

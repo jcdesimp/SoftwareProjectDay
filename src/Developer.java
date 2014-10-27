@@ -69,7 +69,6 @@ public class Developer extends Employee {
                 getTeam().getOffice().getTimeTracker().getCurrTime() < 5100 ) {
 
 
-
             // Check for all time sensitive things first (Lunch, Meetings, Etc)
             // Also check to see of the time sensitive things have already been done,
             // if so don't bother checking the time.
@@ -87,11 +86,14 @@ public class Developer extends Employee {
                 addTimeLunch(getTeam().getOffice().getTimeTracker().getCurrTime() - startTime);
             }
 
-            if (team.getOffice().getTimeTracker().getRealCurrTime() >= 9750 && !reported)
+            else if (team.getOffice().getTimeTracker().getRealCurrTime() >= 9600 && !reported)
             {
+                getTeam().getOffice().getLogger().logAtTime(getName() + " goes to status meeting.");
+                meetStart = getTeam().getOffice().getTimeTracker().getCurrTime();
                 team.getOffice().getConferenceRoom().setupAllMeeting();
                 team.getOffice().getConferenceRoom().holdAllMeeting(team.getOffice());
                 reported = true;
+                addTimeMeeting(getTeam().getOffice().getTimeTracker().getCurrTime() - meetStart);
             }
 
 

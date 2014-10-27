@@ -124,11 +124,13 @@ public class Manager extends Employee {
                 addTimeMeeting(office.getTimeTracker().getCurrTime() - start);
             } else if (!reported && office.getTimeTracker().getRealCurrTime() >= 9750)
             {
+                meetStart = office.getTimeTracker().getCurrTime();
                 office.getConferenceRoom().setupAllMeeting();
                 office.getLogger().logAtTime("The project status update meeting is now starting.");
                 office.getConferenceRoom().holdAllMeeting(office);
                 office.getLogger().logAtTime("The project status update meeting has finished.");
                 reported = true;
+                addTimeMeeting(office.getTimeTracker().getCurrTime() - meetStart);
             }
 
 
