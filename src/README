@@ -1,7 +1,7 @@
 The compilation of our program includes the following files:
 
 ConferenceRoom.java, Developer.java, Employee.java, Manager.java, Office.java, OfficeLogger.java,
-Team.java, TeamLead.java, TimeTracker.java.
+Team.java, TeamLead.java, TimeTracker.java, and Main.java.
 
 The program is to be executed in Main.java.
 
