@@ -12,7 +12,6 @@ public class Office {
     private Manager projectManager;
     private ArrayList<Team> teams;
     private ConferenceRoom confRoom;
-    ArrayList<Integer> teamLeads;
 
     private CyclicBarrier leadMeeting = new CyclicBarrier(4);
 
@@ -31,8 +30,7 @@ public class Office {
 
     }
 
-    public void setLeadMeeting()
-    {
+    public void joinLeadMeeting() {
         try {
             leadMeeting.await();
         } catch (InterruptedException e) {
@@ -40,6 +38,40 @@ public class Office {
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
+
+        try {
+            leadMeeting.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void holdLeadMeeting() {
+        try {
+            leadMeeting.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+            getLogger().logAtTime(Thread.currentThread().getName() + " holds the initial stand-up meeting.");
+        try {
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            leadMeeting.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     /*

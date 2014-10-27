@@ -70,6 +70,13 @@ public class Manager extends Employee {
 
         Random r = new Random();
 
+        long meetStart = office.getTimeTracker().getCurrTime();
+        office.getLogger().logAtTime(getName() + " waits for team leads to start stand-up meeting.");
+        office.holdLeadMeeting();
+        office.getLogger().logAtTime(getName() + " returns from stand-up meeting.");
+        addTimeMeeting(office.getTimeTracker().getCurrTime() - meetStart);
+
+
         while ( office.getTimeTracker().getCurrTime() < 5400 ) {
 
 
